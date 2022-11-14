@@ -224,7 +224,7 @@ export function TopNav() {
           <HomeLink name={title} logo={logo} logoText={logo_text || logoText} />
         </div>
         <div className="flex-grow flex items-center w-auto">
-          <NavItems nav={nav} />
+          {(nav?.length ?? 0) > 1 && <NavItems nav={nav} />}
           <div className="block flex-grow"></div>
           <ThemeButton />
           <div className="block sm:hidden">
