@@ -25,9 +25,9 @@
     "@heroicons/react": "^2.0.12",
     "classnames": "^2.3.2",
     "lodash.throttle": "^4.1.1",
-    "myst-config": "^0.0.3",
+    "myst-config": "^0.0.4",
     "myst-to-react": "^0.1.18",
-    "mystjs": "^0.0.14",
+    "mystjs": "^0.0.15",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.7",
     "unist-util-select": "^4.0.1"

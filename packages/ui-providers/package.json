@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@curvenote/site-common": "^0.0.18",
-    "myst-frontmatter": "^0.0.3"
+    "myst-config": "^0.0.4",
+    "myst-frontmatter": "^0.0.4"
   },
   "peerDependencies": {
     "@types/react": "^16.8 || ^17.0 || ^18.0",
