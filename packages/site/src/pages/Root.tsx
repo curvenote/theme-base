@@ -48,7 +48,7 @@ export function Document({
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        <ContentReload port={CONTENT_CDN_PORT} />
+        {process.env.NODE_ENV !== 'development' ? null : <ContentReload port={CONTENT_CDN_PORT} />}
       </body>
     </html>
   );
