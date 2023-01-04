@@ -27,9 +27,9 @@ export function HoverPopover({
     closeTimeout = setTimeout(() => setOpen(false), timeoutDuration);
   };
   const [popperElement, setPopperElement] = useState<HTMLSpanElement | null>(null);
-  const { styles, attributes } = usePopper(buttonRef.current, popperElement, {
-    placement: 'bottom-start',
-  });
+  // const { styles, attributes } = usePopper(buttonRef.current, popperElement, {
+  //   placement: 'bottom-start',
+  // });
   return (
     <span onMouseLeave={onMouseLeave}>
       <span ref={buttonRef} onMouseMove={onMouseEnter} onMouseEnter={onMouseEnter}>
@@ -38,8 +38,8 @@ export function HoverPopover({
       <span
         className="exclude-from-outline absolute z-30 sm:max-w-[500px]"
         ref={setPopperElement}
-        style={{ ...styles.popper }}
-        {...attributes.popper}
+        // style={{ ...styles.popper }}
+        // {...attributes.popper}
       >
         <Transition
           className="my-2 p-4 shadow-xl bg-white dark:bg-zinc-900 text-sm dark:text-white rounded border border-slate-100 dark:border-zinc-500 break-words"

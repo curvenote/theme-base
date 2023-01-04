@@ -18,9 +18,9 @@ import OUTPUT_RENDERERS from './output';
 import HEADING_RENDERERS from './heading';
 import CROSS_REFERENCE_RENDERERS from './crossReference';
 import TAB_RENDERERS from './tabs';
-import MYST_RENDERERS from './myst';
+// import MYST_RENDERERS from './myst';
 import MERMAID_RENDERERS from './mermaid';
-export { MySTRenderer } from './myst';
+// export { MySTRenderer } from './myst';
 import EXT_RENDERERS from './extensions';
 
 export type { NodeRenderer } from './types';
@@ -42,7 +42,7 @@ export const DEFAULT_RENDERERS: Record<string, NodeRenderer> = {
   ...OUTPUT_RENDERERS,
   ...HEADING_RENDERERS,
   ...CROSS_REFERENCE_RENDERERS,
-  ...MYST_RENDERERS,
+  // ...MYST_RENDERERS,
   ...MERMAID_RENDERERS,
   ...DROPDOWN_RENDERERS,
   ...CARD_RENDERERS,

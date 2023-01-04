@@ -15,7 +15,7 @@ export function ClickPopover({
 }) {
   const [referenceElement, setReferenceElement] = useState<HTMLSpanElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
-  const { styles, attributes } = usePopper(referenceElement, popperElement);
+  // const { styles, attributes } = usePopper(referenceElement, popperElement);
   return (
     <Popover as="span">
       {({ open, close }) => (
@@ -34,8 +34,8 @@ export function ClickPopover({
           <Popover.Panel
             className="exclude-from-outline absolute z-30 sm:max-w-[500px]"
             ref={setPopperElement}
-            style={{ ...styles.popper }}
-            {...attributes.popper}
+            // style={{ ...styles.popper }}
+            // {...attributes.popper}
           >
             <Transition
               className="my-2 p-4 shadow-xl bg-white dark:bg-zinc-900 text-sm dark:text-white rounded border-2 border-slate-200 dark:border-zinc-500 break-words"

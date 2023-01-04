@@ -56,7 +56,7 @@ async function parse(text: string, defaultFrontmatter?: PageFrontmatter) {
     enumerateTargetsPlugin,
     resolveReferencesPlugin,
     WikiTransformer,
-    // GithubTransformer,
+    GithubTransformer,
     DOITransformer,
     RRIDTransformer,
     linksPlugin,
@@ -69,7 +69,7 @@ async function parse(text: string, defaultFrontmatter?: PageFrontmatter) {
   const mdast = myst.parse(text);
   const linkTransforms = [
     new WikiTransformer(),
-    // new GithubTransformer(),
+    new GithubTransformer(),
     new DOITransformer(),
     new RRIDTransformer(),
   ];
