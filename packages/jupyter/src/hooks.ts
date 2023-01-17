@@ -90,7 +90,10 @@ function shallowCloneOutputs(outputs: MinifiedOutput[]) {
   });
 }
 
-export function useFetchAnyTruncatedContent(outputs: MinifiedOutput[]) {
+export function useFetchAnyTruncatedContent(outputs: MinifiedOutput[]): {
+  data: MinifiedOutput[] | undefined;
+  error: any | undefined;
+} {
   const itemsWithPaths: ObjectWithPath[] = [];
   const updated = shallowCloneOutputs(outputs);
 

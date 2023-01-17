@@ -1,4 +1,4 @@
-import type { IMimeBundle, IOutput } from '@jupyterlab/nbformat';
+import type { MinifiedMimeBundle, MinifiedOutput } from 'nbtx';
 
 async function requestImageAsBase64String(src: string) {
   const img = new Image();
@@ -13,39 +13,28 @@ async function requestImageAsBase64String(src: string) {
         console.error('Could not get canvas context');
         return reject();
       }
-      canvas.height = (this as HTMLImageElement).naturalHeight;
-      canvas.width = (this as HTMLImageElement).naturalWidth;
-      ctx.drawImage(this as HTMLImageElement, 0, 0);
+      canvas.height = (img as HTMLImageElement).naturalHeight;
+      canvas.width = (img as HTMLImageElement).naturalWidth;
+      ctx.drawImage(img as HTMLImageElement, 0, 0);
       const dataURL = canvas.toDataURL('image/png');
       const [, base64] = dataURL.split(';base64,');
       resolve(base64);
     };
-
     // trigger the load
-    try {
-      // attempt to properly resolve the url
-      const url = new URL(document.referrer);
-      img.src = `${url.origin}${src}`;
-    } catch (err: any) {
-      // if not best we can do is to try and load the src directly
-      console.error(`Could not get origin from referrer: ${document.referrer}, for: ${src}`);
-      img.src = src;
-    }
+    img.src = src;
   });
 
   return base64String;
 }
 
-function isUrl(maybeUrl: string) {
-  return maybeUrl.startsWith('http') || maybeUrl.startsWith('/');
-}
-
-export async function fetchAndEncodeOutputImages(outputs: IOutput[]) {
+export async function fetchAndEncodeOutputImages(
+  outputs: MinifiedOutput[],
+): Promise<MinifiedOutput[]> {
   return Promise.all(
     outputs.map(async (output) => {
       if (!('data' in output)) return output;
 
-      const imageMimetypes = Object.keys(output.data as IMimeBundle).filter(
+      const imageMimetypes = Object.keys(output.data as MinifiedMimeBundle).filter(
         (mimetype) => mimetype !== 'image/svg' && mimetype.startsWith('image/'),
       );
       if (imageMimetypes.length === 0) return output;
@@ -58,15 +47,18 @@ export async function fetchAndEncodeOutputImages(outputs: IOutput[]) {
             svgs can also be base64 encoded, or plain '<svg ...></svg>'.
             URLs can be relative or absolute
           */
-          const data = (output.data as IMimeBundle)[mimetype] as string;
-          if (isUrl(data)) return requestImageAsBase64String(data);
+          const data = (output.data as MinifiedMimeBundle)[mimetype];
+          if (data.path) {
+            const base64 = await requestImageAsBase64String(data.path);
+            return { ...data, content: base64 };
+          }
           return data;
         }),
       );
 
       imageMimetypes.forEach((mimetype, i) => {
         // eslint-disable-next-line no-param-reassign
-        (output.data as IMimeBundle)[mimetype] = images[i];
+        (output.data as MinifiedMimeBundle)[mimetype] = images[i];
       });
 
       return output;
